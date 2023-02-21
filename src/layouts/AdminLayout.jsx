@@ -1,8 +1,18 @@
 import React from 'react';
-import { NotificationFilled, UploadOutlined, UserOutlined, VideoCameraOutlined } from '@ant-design/icons';
-import { Layout, Menu, theme } from 'antd';
+import {
+  NotificationFilled,
+  SmileOutlined,
+  UploadOutlined,
+  UserOutlined,
+  VideoCameraOutlined,
+} from '@ant-design/icons';
+import { Dropdown, Layout, Menu, theme } from 'antd';
 import './AdminLayout.css';
 import user from '@assets/user.jpg';
+import { deleteToken, deleteUser } from '@/services/auth';
+import { deleteAuthenticated, getToken } from '@services/auth';
+import { useNavigate } from 'react-router';
+import api from '@services/api';
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -26,6 +36,27 @@ function AdminLayout(props) {
     token: { colorBgContainer },
   } = theme.useToken();
 
+  const navigate = useNavigate();
+
+  const logout = async () => {
+    const token = JSON.parse(getToken());
+    await api.post('/User/logout', token);
+
+    deleteToken();
+    deleteUser();
+    deleteAuthenticated();
+
+    navigate('/login', { replace: true });
+  };
+
+  const items = [
+    {
+      key: '1',
+      label: 'Đăng xuất',
+      onClick: () => logout(),
+    },
+  ];
+
   return (
     <Layout className="h-screen">
       <Sider breakpoint="lg" collapsedWidth="0" width={250}>
@@ -43,10 +74,17 @@ function AdminLayout(props) {
             <div>
               <NotificationFilled className="text-xl text-gray-500" />
             </div>
-            <div className="flex justify-center align-middle items-center">
-              <img src={user} className="rounded-full object-fill w-10 h-auto mr-3" />
-              <span className="text-sm text-teal-400">Admin</span>
-            </div>
+            <Dropdown
+              menu={{
+                items,
+              }}
+              trigger={['click']}
+            >
+              <div className="flex justify-center align-middle items-center">
+                <img src={user} className="rounded-full object-fill w-10 h-auto mr-3" />
+                <span className="text-base text-teal-400 font-semibold">Admin</span>
+              </div>
+            </Dropdown>
           </div>
           <div className="flex items-center justify-around text-center align-middle h-full overflow-hidden">
             <h1 className="invisible md:visible text-black font-bold text-xl">
