@@ -33,8 +33,6 @@ api.interceptors.response.use(
 
         const token = JSON.parse(getToken());
 
-        console.log('token', token);
-
         try {
           const rs = await api.post('/User/refresh', {
             refreshToken: token.refreshToken,
