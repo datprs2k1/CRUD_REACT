@@ -183,7 +183,12 @@ function Home(props) {
       </Row>
       <Row className="mt-8">
         <Col span={24}>
-          <Table dataSource={keyword != '' ? onSearch() : dataSource} columns={columns} rowKey="id" />
+          <Table
+            dataSource={keyword != '' ? onSearch() : dataSource}
+            columns={columns}
+            rowKey="id"
+            pagination={{ defaultPageSize: 10 }}
+          />
         </Col>
       </Row>
 
