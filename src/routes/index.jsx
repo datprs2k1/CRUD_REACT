@@ -7,15 +7,15 @@ import Auth from '@/components/Auth';
 const router = createBrowserRouter([
   {
     path: 'admin',
-    element: <App />,
+    element: (
+      <Auth>
+        <App />
+      </Auth>
+    ),
     children: [
       {
         path: '',
-        element: (
-          <Auth>
-            <Home />
-          </Auth>
-        ),
+        element: <Home />,
       },
     ],
   },

@@ -2,6 +2,7 @@ import { Button, Col, Input, Row, Table, Space, Modal, Form, InputNumber, notifi
 import React, { useEffect, useRef, useState } from 'react';
 import api from '@services/api';
 import { DeleteOutlined, EditOutlined, ExclamationCircleFilled } from '@ant-design/icons';
+import Search from 'antd/es/input/Search';
 
 function Home(props) {
   const [dataSource, setDataSource] = useState([]);
@@ -43,7 +44,12 @@ function Home(props) {
       });
 
       await getData();
-    } catch (error) {}
+    } catch (error) {
+      notification.error({
+        message: 'Lỗi.',
+        description: error.response.data.message,
+      });
+    }
   };
 
   const getUserByID = async (id) => {
@@ -165,12 +171,9 @@ function Home(props) {
   ];
   return (
     <>
-      <Row>
-        <Col span={16} className="flex">
-          <Input type="text" className="w-72 mr-3" onChange={(e) => setKeyword(e.target.value)} />
-          <Button type="primary" className="bg-blue-500" onClick={() => onSearch()}>
-            Search
-          </Button>
+      <Row justify="center" align="middle">
+        <Col span={16}>
+          <Search allowClear type="text" className="w-72" onChange={(e) => setKeyword(e.target.value)} />
         </Col>
         <Col span={8} className="flex justify-end">
           <Button type="primary" className="bg-blue-500" onClick={() => setIsAddModalOpen(true)}>

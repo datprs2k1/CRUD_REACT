@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button, Checkbox, Col, Form, Input, Row, Spin } from 'antd';
 import { useForm } from 'antd/es/form/Form';
 import api from '@/services/api';
-import { setAuthenticated, setToken } from '@/services/auth';
+import { setAuthenticated, setToken, setUser } from '@/services/auth';
 import { useNavigate } from 'react-router';
 
 function Login(props) {
@@ -18,7 +18,9 @@ function Login(props) {
         password: data.password,
       });
 
-      setToken(JSON.stringify(response.data));
+      setToken(JSON.stringify(response.data.token));
+
+      setUser(JSON.stringify(response.data.user));
 
       setAuthenticated(true);
 

@@ -46,7 +46,7 @@ function AdminLayout(props) {
     deleteUser();
     deleteAuthenticated();
 
-    navigate('/login', { replace: true });
+    navigate('/login');
   };
 
   const items = [
