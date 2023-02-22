@@ -1,20 +1,20 @@
-import { getAuthenticated, deleteToken, deleteUser } from '@/services/auth';
+import { getAuthenticated, deleteToken, deleteUser, setLogout } from '@/services/auth';
 import React from 'react';
-import { Navigate, Outlet } from 'react-router';
+import { Navigate, Outlet, useNavigate } from 'react-router';
 import { getToken } from '@services/auth';
 
 function Auth(props) {
-  const isAuthenicated = getAuthenticated();
-
   const token = JSON.parse(getToken());
 
-  const now = new Date().getTime();
-
-  if (token.expiredAt < now) {
-    deleteToken();
-    deleteUser();
-    deleteAuthenticated();
+  if (!token) {
+    setLogout();
   }
+
+  if (token.expriedAt < new Date().getTime()) {
+    setLogout();
+  }
+
+  const isAuthenicated = getAuthenticated();
 
   return isAuthenicated ? props.children : <Navigate to="/login" replace />;
 }

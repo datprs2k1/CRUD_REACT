@@ -35,6 +35,12 @@ const deleteToken = () => {
   localStorage.removeItem('token');
 };
 
+const setLogout = () => {
+  deleteAuthenticated();
+  deleteUser();
+  deleteToken();
+};
+
 export {
   setAuthenticated,
   getAuthenticated,
@@ -45,4 +51,5 @@ export {
   setToken,
   getToken,
   deleteToken,
+  setLogout,
 };
