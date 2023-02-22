@@ -33,21 +33,18 @@ api.interceptors.response.use(
 
         const token = JSON.parse(getToken());
 
+        console.log('token', token);
+
         try {
           const rs = await api.post('/User/refresh', {
             refreshToken: token.refreshToken,
             accessToken: token.accessToken,
           });
 
-          setToken(rs.data);
+          setToken(JSON.stringify(rs.data));
 
           return api(originalConfig);
         } catch (_error) {
-          await api.post('/User/logout', {
-            refreshToken: token.refreshToken,
-            accessToken: token.accessToken,
-          });
-
           deleteToken();
           deleteUser();
           deleteAuthenticated();

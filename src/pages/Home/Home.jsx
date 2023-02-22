@@ -173,7 +173,7 @@ function Home(props) {
     <>
       <Row justify="center" align="middle">
         <Col span={16}>
-          <Search allowClear type="text" className="w-72" onChange={(e) => setKeyword(e.target.value)} />
+          <Search allowClear type="text" className="w-36 md:w-72" onChange={(e) => setKeyword(e.target.value)} />
         </Col>
         <Col span={8} className="flex justify-end">
           <Button type="primary" className="bg-blue-500" onClick={() => setIsAddModalOpen(true)}>
