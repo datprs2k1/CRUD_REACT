@@ -8,7 +8,7 @@ const api = axios.create({
 
 api.interceptors.request.use(
   (config) => {
-    const token = JSON.parse(getToken());
+    const token = getToken();
     if (token) {
       config.headers['Authorization'] = 'Bearer ' + token.accessToken;
     }
@@ -31,7 +31,7 @@ api.interceptors.response.use(
       if (err?.response?.status === 401 && !originalConfig?._retry) {
         originalConfig._retry = true;
 
-        const token = JSON.parse(getToken());
+        const token = getToken();
 
         try {
           const rs = await api.post('/User/refresh', {
@@ -39,7 +39,7 @@ api.interceptors.response.use(
             accessToken: token.accessToken,
           });
 
-          setToken(JSON.stringify(rs.data));
+          setToken(rs.data);
 
           return api(originalConfig);
         } catch (_error) {

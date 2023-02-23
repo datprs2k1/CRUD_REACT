@@ -9,7 +9,7 @@ import {
 import { Dropdown, Layout, Menu, theme } from 'antd';
 import './AdminLayout.css';
 import user from '@assets/user.jpg';
-import { deleteToken, deleteUser } from '@/services/auth';
+import { deleteToken, deleteUser, getUser } from '@/services/auth';
 import { deleteAuthenticated, getToken } from '@services/auth';
 import { useNavigate } from 'react-router';
 import api from '@services/api';
@@ -39,7 +39,7 @@ function AdminLayout(props) {
   const navigate = useNavigate();
 
   const logout = async () => {
-    const token = JSON.parse(getToken());
+    const token = getToken();
     await api.post('/User/logout', token);
 
     deleteToken();
@@ -82,7 +82,7 @@ function AdminLayout(props) {
             >
               <div className="flex justify-center align-middle items-center">
                 <img src={user} className="rounded-full object-fill w-10 h-auto mr-3" />
-                <span className="text-base text-teal-400 font-semibold">Admin</span>
+                <span className="text-base text-teal-400 font-semibold">{getUser().name}</span>
               </div>
             </Dropdown>
           </div>

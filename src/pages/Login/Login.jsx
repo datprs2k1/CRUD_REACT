@@ -18,9 +18,9 @@ function Login(props) {
         password: data.password,
       });
 
-      setToken(JSON.stringify(response.data.token));
+      setToken(response.data.token);
 
-      setUser(JSON.stringify(response.data.user));
+      setUser(response.data.user);
 
       setAuthenticated(true);
 
@@ -34,8 +34,8 @@ function Login(props) {
 
   return (
     <Spin spinning={isLoading} size="large">
-      <div className="flex justify-center items-center bg-slate-100 h-screen w-screen">
-        <div className="bg-gray-400 rounded shadow-xl p-10 w-10/12 h-auto md:w-4/12">
+      <div className="flex justify-center items-center bg-white h-screen w-screen">
+        <div className="bg-gray-400 rounded-lg shadow-xl p-10 w-10/12 h-auto md:w-4/12">
           <h1 className="text-2xl text-center mb-4 font-bold">Login</h1>
           <Row justify="center" align="middle">
             <Col span={24}>

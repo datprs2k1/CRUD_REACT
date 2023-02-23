@@ -1,9 +1,9 @@
 const setAuthenticated = (authenticated) => {
-  localStorage.setItem('authenticated', authenticated);
+  localStorage.setItem('authenticated', JSON.stringify(authenticated));
 };
 
 const getAuthenticated = () => {
-  return localStorage.getItem('authenticated') ? localStorage.getItem('authenticated') : false;
+  return localStorage.getItem('authenticated') ? JSON.parse(localStorage.getItem('authenticated')) : false;
 };
 
 const deleteAuthenticated = () => {
@@ -11,12 +11,11 @@ const deleteAuthenticated = () => {
 };
 
 const setUser = (user) => {
-  localStorage.setItem('user', user);
+  localStorage.setItem('user', JSON.stringify(user));
 };
 
 const getUser = () => {
-  const userStr = localStorage.getItem('user');
-  return userStr ? JSON.parse(userStr) : null;
+  return localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null;
 };
 
 const deleteUser = () => {
@@ -24,11 +23,11 @@ const deleteUser = () => {
 };
 
 const setToken = (token) => {
-  localStorage.setItem('token', token);
+  localStorage.setItem('token', JSON.stringify(token));
 };
 
 const getToken = () => {
-  return localStorage.getItem('token') ? localStorage.getItem('token') : null;
+  return localStorage.getItem('token') ? JSON.parse(localStorage.getItem('token')) : null;
 };
 
 const deleteToken = () => {
