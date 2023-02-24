@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { deleteAuthenticated, deleteToken, getToken, setToken } from '@services/auth';
-import { deleteUser } from '@/services/auth';
+import { getToken, setLogout, setToken } from '@services/auth';
+import { setUser } from '@/services/auth';
 
 const api = axios.create({
   baseURL: 'https://localhost:7136/api',
@@ -39,13 +39,12 @@ api.interceptors.response.use(
             accessToken: token.accessToken,
           });
 
-          setToken(rs.data);
+          setToken(rs.data.token);
+          setUser(rs.data.user);
 
           return api(originalConfig);
         } catch (_error) {
-          deleteToken();
-          deleteUser();
-          deleteAuthenticated();
+          setLogout();
 
           window.location.href = '/login';
           return Promise.reject(_error);

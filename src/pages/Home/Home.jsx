@@ -178,6 +178,7 @@ function Home(props) {
             type="text"
             label="Search"
             className="w-36 md:w-72"
+            enterButton
             onChange={(e) => setKeyword(e.target.value)}
           />
         </Col>

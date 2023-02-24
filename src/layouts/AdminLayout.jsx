@@ -9,7 +9,7 @@ import {
 import { Dropdown, Layout, Menu, theme } from 'antd';
 import './AdminLayout.css';
 import user from '@assets/user.jpg';
-import { deleteToken, deleteUser, getUser } from '@/services/auth';
+import { deleteToken, deleteUser, getUser } from '@services/auth';
 import { deleteAuthenticated, getToken } from '@services/auth';
 import { useNavigate } from 'react-router';
 import api from '@services/api';
