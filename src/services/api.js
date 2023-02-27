@@ -1,6 +1,5 @@
 import axios from 'axios';
-import { getToken, setLogout, setToken } from '@services/auth';
-import { setUser } from '@/services/auth';
+import { auth } from '@services';
 
 const api = axios.create({
   baseURL: 'https://localhost:7136/api',
@@ -8,6 +7,7 @@ const api = axios.create({
 
 api.interceptors.request.use(
   (config) => {
+    const { getToken } = auth;
     const token = getToken();
     if (token) {
       config.headers['Authorization'] = 'Bearer ' + token.accessToken;
@@ -31,6 +31,8 @@ api.interceptors.response.use(
       if (err?.response?.status === 401 && !originalConfig?._retry) {
         originalConfig._retry = true;
 
+        const { getToken, setToken, setLogout, setAuthenticated } = auth;
+
         const token = getToken();
 
         try {
@@ -41,6 +43,7 @@ api.interceptors.response.use(
 
           setToken(rs.data.token);
           setUser(rs.data.user);
+          setAuthenticated();
 
           return api(originalConfig);
         } catch (_error) {

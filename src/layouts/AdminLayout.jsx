@@ -1,18 +1,9 @@
-import React from 'react';
-import {
-  NotificationFilled,
-  SmileOutlined,
-  UploadOutlined,
-  UserOutlined,
-  VideoCameraOutlined,
-} from '@ant-design/icons';
+import { NotificationFilled, UserOutlined } from '@ant-design/icons';
 import { Dropdown, Layout, Menu, theme } from 'antd';
 import './AdminLayout.css';
 import user from '@assets/user.jpg';
-import { deleteToken, deleteUser, getUser } from '@services/auth';
-import { deleteAuthenticated, getToken } from '@services/auth';
+import { auth, api } from '@services';
 import { useNavigate } from 'react-router';
-import api from '@services/api';
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -32,6 +23,7 @@ const MenuItem = [
 ];
 
 function AdminLayout(props) {
+  const { setLogout, getUser, getToken } = auth;
   const {
     token: { colorBgContainer },
   } = theme.useToken();
@@ -42,9 +34,7 @@ function AdminLayout(props) {
     const token = getToken();
     await api.post('/User/logout', token);
 
-    deleteToken();
-    deleteUser();
-    deleteAuthenticated();
+    setLogout();
 
     navigate('/login');
   };
